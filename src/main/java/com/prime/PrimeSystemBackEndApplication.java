@@ -79,19 +79,19 @@ public class PrimeSystemBackEndApplication implements CommandLineRunner {
 
 		Post post = new Post();
 		post.setLegenda("Primeiro Post");
-		post.setImagemNome("375f910397fbc6decbaa710812a2346-7925819158132343893.png");
+		post.setImagem("f01893586ea7a97c4d9809bd75ea496d3693664078098349252.png");
 		post.setDono(systemUser2);
 		postRepository.save(post);
 
 		Post post2 = new Post();
 		post2.setLegenda("Segundo Post");
-		post2.setImagemNome("375f910397fbc6decbaa710812a2346-7925819158132343893.png");
+		post2.setImagem("4577b6c38337a8bb800e1901f123ba3c9145961451555031730.png");
 		post2.setDono(systemUser2);
 		postRepository.save(post2);
 
 		Post post3 = new Post();
 		post3.setLegenda("Terceiro Post");
-		post3.setImagemNome("375f910397fbc6decbaa710812a2346-7925819158132343893.png");
+		post3.setImagem("745acb7a993760ea5b707cad91cdebc45623297822687971576.png");
 		post3.setDono(systemUser4);
 		postRepository.save(post3);
 

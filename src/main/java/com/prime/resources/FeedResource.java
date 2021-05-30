@@ -1,6 +1,7 @@
 package com.prime.resources;
 
 import com.prime.domain.Post;
+import com.prime.dto.PostDTO;
 import com.prime.service.FeedService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,11 @@ public class FeedResource {
     private FeedService feedService;
 
     @GetMapping
-    public ResponseEntity<Page<Post>> getFeed(@RequestParam(value="page", defaultValue="0") Integer page,
-                                              @RequestParam(value="linesPerPage", defaultValue="5") Integer linesPerPage,
-                                              @RequestParam(value="orderBy", defaultValue="data") String orderBy,
-                                              @RequestParam(value="direction", defaultValue="DESC") String direction) {
-        Page<Post> listPosts = feedService.listPosts(page, linesPerPage, orderBy, direction);
+    public ResponseEntity<Page<PostDTO>> getFeed(@RequestParam(value="page", defaultValue="0") Integer page,
+                                                 @RequestParam(value="linesPerPage", defaultValue="10") Integer linesPerPage,
+                                                 @RequestParam(value="orderBy", defaultValue="data") String orderBy,
+                                                 @RequestParam(value="direction", defaultValue="DESC") String direction) {
+        Page<PostDTO> listPosts = feedService.listPosts(page, linesPerPage, orderBy, direction);
         return ResponseEntity.ok().body(listPosts);
     }
 

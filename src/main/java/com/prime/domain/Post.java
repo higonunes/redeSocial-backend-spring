@@ -25,12 +25,11 @@ public class Post implements Serializable {
     private Long id;
 
     @NotEmpty
+    @Column(length = 1000)
     private String legenda;
 
-    @JsonIgnore
     @NotEmpty
-    private String imagemNome;
-
+    private String imagem;
 
     @JsonFormat(pattern = "dd/MM/yyy HH:mm")
     private Date data;
@@ -43,8 +42,12 @@ public class Post implements Serializable {
     @OneToMany(mappedBy = "post")
     private List<Curtida> curtidas = new ArrayList<>();
 
-    public int getCurtidas() {
-        return curtidas.size();
+    public Post(long l, String s, String s1, Date date, SystemUser systemUser) {
+        this.id = l;
+        this.legenda = s;
+        this.data = date;
+        this.dono = systemUser;
+        this.curtidas = new ArrayList<>();
     }
 
     @PrePersist
@@ -52,7 +55,4 @@ public class Post implements Serializable {
         data = new Date();
     }
 
-    public String getImagemURL() {
-        return ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/feed/imagem/" + imagemNome;
-    }
 }

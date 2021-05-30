@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class SystemUser implements Serializable {
@@ -24,6 +25,12 @@ public class SystemUser implements Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
+
+    public SystemUser(Long id, String nome, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,7 +81,7 @@ public class SystemUser implements Serializable {
         return seguindo.size();
     }
 
-    public String getImagemURL() {
-        return imagemNome == null ? null : ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString() + "/" + imagemNome;
+    public String getAvatar() {
+        return imagemNome == null ? null : ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString() + "/perfil/imagem" + imagemNome;
     }
 }

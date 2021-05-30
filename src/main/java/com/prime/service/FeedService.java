@@ -1,11 +1,14 @@
 package com.prime.service;
 
 import com.prime.domain.Post;
+import com.prime.dto.PostDTO;
 import com.prime.repositories.PostRepository;
 import com.prime.repositories.SystemUserRepository;
 import com.prime.security.UserSS;
 import com.prime.service.exceptions.AuthorizationException;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +26,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class FeedService {
 
     @Autowired
@@ -31,7 +36,7 @@ public class FeedService {
     @Autowired
     private SystemUserRepository systemUserRepository;
 
-    public Page<Post> listPosts(Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<PostDTO> listPosts(Integer page, Integer linesPerPage, String orderBy, String direction) {
         UserSS userSS = UserService.authenticated();
 
         if (userSS == null) {
@@ -39,7 +44,9 @@ public class FeedService {
         }
 
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
-        return postRepository.feedUsuario(systemUserRepository.findById(userSS.getId()).get(), pageRequest);
+
+        Page<Post> listPost =  postRepository.feedUsuario(systemUserRepository.findById(userSS.getId()).get(), pageRequest);
+        return listPost.map(x -> new PostDTO(x, userSS));
     }
 
     public Post setPost(Post post) {
@@ -67,10 +74,6 @@ public class FeedService {
     }
 
     public File getPostImage(String imageName) {
-        UserSS userSS = UserService.authenticated();
-        if (userSS == null) {
-            throw new AuthorizationException();
-        }
         return new File(System.getProperty("user.dir") + "/images/" + imageName);
     }
 }

@@ -1,6 +1,7 @@
 package com.prime.security;
 
 import com.prime.enums.Perfil;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;

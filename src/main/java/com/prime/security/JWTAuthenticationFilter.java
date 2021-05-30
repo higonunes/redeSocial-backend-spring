@@ -55,7 +55,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         JSONObject obj2 = new JSONObject();
         obj2.put("token", "Bearer " + token);
-        obj2.append("user", obj);
+        obj2.put("user", obj);
         response.getWriter().write(obj2.toString());
     }
 
